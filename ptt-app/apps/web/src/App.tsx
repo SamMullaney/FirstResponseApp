@@ -16,15 +16,13 @@ function AppRoutes({ page, setPage }: { page: Page; setPage: (p: Page) => void }
     <>
       {page === "dashboard" && <Dashboard />}
       {page === "channels" && <Channels onBack={() => setPage("dashboard")} />}
-  {page === "profile" && <Dashboard hideBottomSpacer onBack={() => setPage("dashboard")} />}
+      {page === "profile" && <Dashboard onBack={() => setPage("dashboard")} />}
 
-      {page !== "profile" && (
-        <BottomBar
-          onLeft={() => setPage("profile")}
-          onPrimary={() => alert("Push-to-talk pressed")}
-          onRight={() => setPage("channels")}
-        />
-      )}
+      <BottomBar
+        onLeft={() => setPage("profile")}
+        onPrimary={() => alert("Push-to-talk pressed")}
+        onRight={() => setPage("channels")}
+      />
     </>
   );
 }
