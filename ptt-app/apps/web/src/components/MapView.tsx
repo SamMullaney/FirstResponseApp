@@ -71,7 +71,7 @@ function generateHexGeoJSON(
   };
 }
 
-export default function MapView() {
+export default function MapView({ height = "60vh" }: { height?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const [geoError, setGeoError] = useState<string | null>(null);
@@ -176,7 +176,7 @@ export default function MapView() {
   }, []);
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "60vh" }}>
+    <div style={{ position: "relative", width: "100%", height }}>
       {geoError && (
         <div
           style={{
