@@ -1,16 +1,38 @@
 import { AuthProvider, useAuth } from "./auth/authContext";
+import { useState } from "react";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Channels from "./pages/Channels";
+import BottomBar from "./components/BottomBar";
 
-function AppRoutes() {
+type Page = "dashboard" | "channels" | "profile";
+
+function AppRoutes({ page, setPage }: { page: Page; setPage: (p: Page) => void }) {
   const { isAuthenticated } = useAuth();
-  return isAuthenticated ? <Dashboard /> : <Login />;
+
+  if (!isAuthenticated) return <Login />;
+
+  return (
+    <>
+      {page === "dashboard" && <Dashboard />}
+      {page === "channels" && <Channels onBack={() => setPage("dashboard")} />}
+      {page === "profile" && <Dashboard onBack={() => setPage("dashboard")} />}
+
+      <BottomBar
+        onLeft={() => setPage("profile")}
+        onPrimary={() => alert("Push-to-talk pressed")}
+        onRight={() => setPage("channels")}
+      />
+    </>
+  );
 }
 
 export default function App() {
+  const [page, setPage] = useState<Page>("dashboard");
+
   return (
     <AuthProvider>
-      <AppRoutes />
+      <AppRoutes page={page} setPage={setPage} />
     </AuthProvider>
   );
 }

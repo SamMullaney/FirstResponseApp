@@ -16,7 +16,13 @@ interface UserProfile {
   };
 }
 
-export default function Dashboard() {
+export default function Dashboard({
+  hideBottomSpacer,
+  onBack,
+}: {
+  hideBottomSpacer?: boolean;
+  onBack?: () => void;
+}) {
   const { token, logout } = useAuth();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -63,9 +69,16 @@ export default function Dashboard() {
     <div className="dashboard-container">
       <header className="dashboard-header">
         <h1>Dashboard</h1>
-        <button onClick={logout} className="logout-btn">
-          Sign Out
-        </button>
+        <div>
+          {onBack && (
+            <button onClick={onBack} className="logout-btn" style={{ marginRight: 8 }}>
+              Back
+            </button>
+          )}
+          <button onClick={logout} className="logout-btn">
+            Sign Out
+          </button>
+        </div>
       </header>
 
       <div className="profile-card">
@@ -97,6 +110,8 @@ export default function Dashboard() {
       <div className="map-breakout">
         <MapView />
       </div>
+      {/* Bottom bar spacer (hidden when used as standalone profile) */}
+      {!hideBottomSpacer && <div style={{ height: 72 }} />}
     </div>
   );
 }
