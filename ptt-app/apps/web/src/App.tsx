@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Channels from "./pages/Channels";
 import BottomBar from "./components/BottomBar";
+import TopBar from "./components/TopBar";
 
 type Page = "dashboard" | "channels" | "profile";
 
@@ -32,7 +33,8 @@ export default function App() {
 
   return (
     <AuthProvider>
-      <AppRoutes page={page} setPage={setPage} />
+  <TopBar onProfileClick={() => setPage("profile")} />
+  <AppRoutes page={page} setPage={setPage} />
     </AuthProvider>
   );
 }
