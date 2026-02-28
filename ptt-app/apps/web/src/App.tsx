@@ -16,7 +16,7 @@ function AppRoutes({ page, setPage }: { page: Page; setPage: (p: Page) => void }
 
   return (
     <>
-      {page === "map" && <MapPage onProfile={() => setPage("profile")} />}
+      {page === "map" && <MapPage />}
       {page === "channels" && <Channels onBack={() => setPage("map")} />}
       {page === "profile" && <Dashboard onBack={() => setPage("map")} />}
 

@@ -1,13 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { useAuth } from "../auth/authContext";
 import MapView from "../components/MapView";
 
-interface Props {
-  onProfile?: () => void;
-}
-
-export default function MapPage({ onProfile }: Props) {
-  const { logout } = useAuth();
+export default function MapPage() {
   const [pos, setPos] = useState({ x: 24, y: 72 });
   const dragging = useRef(false);
   const dragStart = useRef({ mouseX: 0, mouseY: 0, posX: 0, posY: 0 });
@@ -47,20 +41,6 @@ export default function MapPage({ onProfile }: Props) {
 
   return (
     <div className="map-page">
-      <header className="map-page-header">
-        <span className="map-page-title">FirstResponse PTT</span>
-        <div style={{ display: "flex", gap: 8 }}>
-          {onProfile && (
-            <button className="logout-btn" onClick={onProfile}>
-              Profile
-            </button>
-          )}
-          <button className="logout-btn" onClick={logout}>
-            Sign Out
-          </button>
-        </div>
-      </header>
-
       <div
         className="map-widget"
         style={{ transform: `translate(${pos.x}px, ${pos.y}px)` }}
