@@ -130,18 +130,10 @@ export default function Channels({ onBack }: { onBack: () => void }) {
                     {isOpen ? "▲" : "▼"}
                   </button>
 
-                  {isJoined ? (
+                  {isJoined && (
                     <span className="joined-badge" aria-hidden>
                       Joined
                     </span>
-                  ) : (
-                    <button
-                      className="bb-btn"
-                      style={{ minWidth: 96 }}
-                      onClick={() => toggleJoin(c.id)}
-                    >
-                      Join
-                    </button>
                   )}
                 </div>
 

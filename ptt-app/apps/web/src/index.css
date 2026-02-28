@@ -282,3 +282,20 @@ body {
 .member-item + .member-item {
   margin-top: 6px;
 }
+
+/* Channel button hover/focus affordance */
+.channel-placeholder li .bb-btn {
+  transition: transform 120ms ease, border-color 120ms ease, background-color 120ms ease;
+}
+
+.channel-placeholder li .bb-btn:hover {
+  background: rgba(59,130,246,0.06);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.channel-placeholder li .bb-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 6px 18px rgba(59,130,246,0.12);
+  border-color: var(--color-primary);
+}
