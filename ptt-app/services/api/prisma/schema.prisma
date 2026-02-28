@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  OFFICER
+  FIREFIGHTER
+  EMT
+  ADMIN
+}
+
+model Agency {
+  id    String @id @default(uuid())
+  name  String
+  type  String // e.g., "police", "fire", "emt"
+  users User[]
+
+  @@map("agencies")
+}
+
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  passwordHash  String
+  role          Role
+  agencyId      String
+  agency        Agency   @relation(fields: [agencyId], references: [id])
+  badgeNumber   String?
+  licenseNumber String?
+  createdAt     DateTime @default(now())
+
+  @@index([agencyId])
+  @@map("users")
+}

@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ptt_user
+      POSTGRES_PASSWORD: ptt_password
+      POSTGRES_DB: ptt_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ./services/api
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: "postgresql://ptt_user:ptt_password@postgres:5432/ptt_db?schema=public"
+      JWT_SECRET: "dev-secret-change-in-production"
+      PORT: "3001"
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:
