@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../auth/authContext";
+import MapView from "../components/MapView";
 
 interface UserProfile {
   id: string;
@@ -106,11 +107,8 @@ export default function Dashboard({
         </dl>
       </div>
 
-      <div className="channel-placeholder">
-        <h2>Channels</h2>
-        <p className="placeholder-text">
-          Channel list will appear here in a future update.
-        </p>
+      <div className="map-breakout">
+        <MapView />
       </div>
       {/* Bottom bar spacer (hidden when used as standalone profile) */}
       {!hideBottomSpacer && <div style={{ height: 72 }} />}
