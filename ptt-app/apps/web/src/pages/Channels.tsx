@@ -53,21 +53,36 @@ export default function Channels({ onBack }: { onBack: () => void }) {
 
   function toggleJoin(id: string) {
     setMembers((prev) => {
-      const prevList = prev[id] ?? [];
-      const isJoined = prevList.includes(displayName);
-      let nextList: string[];
-      if (isJoined) {
-        nextList = prevList.filter((n) => n !== displayName);
-      } else {
-        // ensure unique
-        nextList = Array.from(new Set([displayName, ...prevList]));
+      const isCurrentlyJoined = (prev[id] ?? []).includes(displayName);
+
+      // remove user from all channels first
+      const next: Record<string, string[]> = {};
+      for (const [key, list] of Object.entries(prev)) {
+        const filtered = list.filter((n) => n !== displayName);
+        if (filtered.length > 0) next[key] = filtered;
       }
 
-      return { ...prev, [id]: nextList };
+      // if user wasn't joined to the clicked channel, add them (single channel enforcement)
+      if (!isCurrentlyJoined) {
+        next[id] = Array.from(new Set([displayName, ...(prev[id] ?? [])]));
+      }
+
+      return next;
     });
 
     setJoinedChannel((prev) => (prev === id ? null : id));
   }
+
+  // Ensure members mapping includes the joinedChannel on mount (sync localStorage)
+  React.useEffect(() => {
+    if (!joinedChannel) return;
+    setMembers((prev) => {
+      const list = prev[joinedChannel] ?? [];
+      if (list.includes(displayName)) return prev;
+      return { ...prev, [joinedChannel]: [...list, displayName] };
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function toggleExpanded(id: string) {
     setExpanded((s) => ({ ...s, [id]: !s[id] }));
