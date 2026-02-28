@@ -1,3 +1,0 @@
-
-Colaborators:
-Sam Mullaney

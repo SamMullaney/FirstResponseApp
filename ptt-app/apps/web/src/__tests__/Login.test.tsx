@@ -44,7 +44,7 @@ describe("Login flow", () => {
   });
 
   it("shows dashboard after successful login", async () => {
-    global.fetch = mockFetchSuccess();
+    globalThis.fetch = mockFetchSuccess();
 
     render(<App />);
 
@@ -62,7 +62,7 @@ describe("Login flow", () => {
   });
 
   it("shows error on failed login", async () => {
-    global.fetch = vi.fn().mockResolvedValue({
+    globalThis.fetch = vi.fn().mockResolvedValue({
       ok: false,
       json: async () => ({ error: "Invalid email or password" }),
     });

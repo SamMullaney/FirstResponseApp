@@ -189,19 +189,20 @@ body {
   font-size: 0.8rem;
 }
 
-.channel-placeholder {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: 1.5rem;
+/* Map breakout — full-width map inside constrained dashboard */
+.map-breakout {
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  width: 100vw;
+  border-top: 1px solid var(--color-border);
 }
 
-.channel-placeholder h2 {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+/* MapLibre dark theme overrides */
+.maplibregl-ctrl-group {
+  background: var(--color-surface) !important;
+  border-color: var(--color-border) !important;
 }
 
-.placeholder-text {
-  color: var(--color-text-muted);
-  font-size: 0.875rem;
+.maplibregl-ctrl-group button {
+  filter: invert(1);
 }

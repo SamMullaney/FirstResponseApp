@@ -11,12 +11,15 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "h3-js": "^4.4.0",
+    "maplibre-gl": "^5.19.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
+    "@types/geojson": "^7946.0.16",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",
