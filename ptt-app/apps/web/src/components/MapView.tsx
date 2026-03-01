@@ -3,12 +3,17 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { latLngToCell, gridDisk, cellToBoundary } from "h3-js";
 import type { Feature, FeatureCollection, Polygon } from "geojson";
+import type { Incident } from "../data/incidents";
 
-const DEFAULT_CENTER: [number, number] = [-98.5795, 39.8283];
-const DEFAULT_ZOOM = 5;
+// Newark, DE as the demo default center
+const DEFAULT_CENTER: [number, number] = [-75.7497, 39.6837];
+const DEFAULT_ZOOM = 12;
 const LOCATED_ZOOM = 13;
 const H3_RESOLUTION = 8;
 const GRID_DISK_RADIUS = 5;
+
+// Stable empty array so the default prop doesn't change identity on every render
+const NO_INCIDENTS: Incident[] = [];
 
 interface HexProperties {
   h3Index: string;
@@ -71,10 +76,25 @@ function generateHexGeoJSON(
   };
 }
 
-export default function MapView({ height = "60vh" }: { height?: string }) {
+export default function MapView({
+  height = "60vh",
+  incidents = NO_INCIDENTS,
+  onIncidentClick,
+}: {
+  height?: string;
+  incidents?: Incident[];
+  onIncidentClick?: (id: string) => void;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const [geoError, setGeoError] = useState<string | null>(null);
+
+  // Keep a ref so the marker click handler always has the latest callback
+  // without the map effect needing to re-run.
+  const onIncidentClickRef = useRef(onIncidentClick);
+  useEffect(() => {
+    onIncidentClickRef.current = onIncidentClick;
+  });
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -136,7 +156,26 @@ export default function MapView({ height = "60vh" }: { height?: string }) {
         .addTo(map);
     }
 
+    // Add incident markers — captured via closure; incidents are static demo data.
+    function addIncidentMarkers() {
+      incidents.forEach((inc) => {
+        const marker = new maplibregl.Marker({ color: "#ef4444" })
+          .setLngLat([inc.lng, inc.lat])
+          .addTo(map);
+
+        const el = marker.getElement();
+        el.style.cursor = "pointer";
+        el.setAttribute("title", inc.title);
+        el.addEventListener("click", (e) => {
+          e.stopPropagation();
+          onIncidentClickRef.current?.(inc.id);
+        });
+      });
+    }
+
     map.on("load", () => {
+      addIncidentMarkers();
+
       if (!navigator.geolocation) {
         setGeoError("Geolocation is not supported by your browser.");
         addHexLayer(DEFAULT_CENTER[1], DEFAULT_CENTER[0]);
@@ -157,7 +196,7 @@ export default function MapView({ height = "60vh" }: { height?: string }) {
           addUserMarker(latitude, longitude);
         },
         (err) => {
-          setGeoError(`Location access denied: ${err.message}. Showing default location.`);
+          setGeoError(`Location access denied: ${err.message}. Showing Newark, DE.`);
           addHexLayer(DEFAULT_CENTER[1], DEFAULT_CENTER[0]);
           addUserMarker(DEFAULT_CENTER[1], DEFAULT_CENTER[0]);
         },
@@ -173,6 +212,9 @@ export default function MapView({ height = "60vh" }: { height?: string }) {
       map.remove();
       mapRef.current = null;
     };
+    // incidents is static demo data captured via closure; onIncidentClick is
+    // accessed via ref so it never needs to be in deps.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

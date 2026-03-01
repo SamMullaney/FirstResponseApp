@@ -1,7 +1,12 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import MapView from "../components/MapView";
+import { DEMO_INCIDENTS, TYPE_LABELS } from "../data/incidents";
 
-export default function MapPage() {
+export default function MapPage({
+  onIncidentClick,
+}: {
+  onIncidentClick: (id: string) => void;
+}) {
   const [pos, setPos] = useState({ x: 16, y: 72 });
   const dragging = useRef(false);
   const dragStart = useRef({ mouseX: 0, mouseY: 0, posX: 0, posY: 0 });
@@ -49,8 +54,38 @@ export default function MapPage() {
           <span className="map-widget-grip">⠿⠿</span>
           <span>Signal Map</span>
         </div>
+
         <div className="map-widget-body">
-          <MapView height="100%" />
+          <MapView
+            height="100%"
+            incidents={DEMO_INCIDENTS}
+            onIncidentClick={onIncidentClick}
+          />
+        </div>
+
+        <div className="incident-log">
+          <div className="incident-log-header">Active Incidents</div>
+          <div className="incident-log-list">
+            {DEMO_INCIDENTS.map((inc) => (
+              <button
+                key={inc.id}
+                className="incident-log-item"
+                onClick={() => onIncidentClick(inc.id)}
+              >
+                <span
+                  className={`incident-type-badge incident-type-${inc.type}`}
+                >
+                  {TYPE_LABELS[inc.type]}
+                </span>
+                <span className="incident-log-title">{inc.title}</span>
+                <span className="incident-log-address">{inc.address}</span>
+                <span
+                  className={`incident-status-dot incident-status-${inc.status}`}
+                />
+                <span className="incident-log-time">{inc.time}</span>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>
