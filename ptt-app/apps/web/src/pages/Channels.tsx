@@ -1,4 +1,3 @@
-import VoiceChat from "../components/VoiceChat";
 import React from "react";
 import { useAuth } from "../auth/authContext";
 import VoiceChannel from "../components/VoiceChat";
@@ -183,10 +182,6 @@ export default function Channels({ onBack }: { onBack: () => void }) {
         <div style={{ marginTop: "1rem" }}>
           <VoiceChannel channelId={joinedChannel} />
         </div>
-      )}
-
-      {joinedChannel && (
-        <VoiceChat channelId={joinedChannel} />
       )}
 
   <div className="chat-history">
