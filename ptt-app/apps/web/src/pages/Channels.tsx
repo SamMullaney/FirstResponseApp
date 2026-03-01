@@ -5,7 +5,7 @@ export default function Channels({ onBack }: { onBack: () => void }) {
   const { logout, user } = useAuth();
 
   const channels = [
-    { id: "general", name: "General" },
+    { id: "general", name: "General (ALL)" },
     { id: "firefighters", name: "Firefighters" },
     { id: "police", name: "Police" },
     { id: "emt", name: "EMT" },
@@ -20,6 +20,17 @@ export default function Channels({ onBack }: { onBack: () => void }) {
       return {};
     }
   });
+
+  const [chatHistory, setChatHistory] = React.useState<Record<string, { sender: string; text: string }[]>>(() => {
+    try {
+      const raw = localStorage.getItem("channelChatHistory");
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
+  });
+  
+  const [newMessage, setNewMessage] = React.useState("");
 
   const [joinedChannel, setJoinedChannel] = React.useState<string | null>(() => {
     try {
@@ -87,6 +98,8 @@ export default function Channels({ onBack }: { onBack: () => void }) {
   function toggleExpanded(id: string) {
     setExpanded((s) => ({ ...s, [id]: !s[id] }));
   }
+
+
 
   return (
     <div className="dashboard-container">
@@ -156,6 +169,56 @@ export default function Channels({ onBack }: { onBack: () => void }) {
           })}
         </ul>
       </div>
+
+      <div className="channel-chat-container">
+  <h3>Chat {joinedChannel ? `#${joinedChannel}` : ""}</h3>
+
+  <div className="chat-history">
+    {(joinedChannel ? chatHistory[joinedChannel] ?? [] : []).map((msg, idx) => (
+      <div
+        key={idx}
+        className={`chat-message ${msg.sender === displayName ? "you" : "other"}`}
+      >
+        <span className="chat-sender">{msg.sender === displayName ? "You" : msg.sender}:</span>
+        <span className="chat-text">{msg.text}</span>
+      </div>
+    ))}
+    {joinedChannel && (chatHistory[joinedChannel]?.length ?? 0) === 0 && (
+      <div className="chat-empty">No messages yet</div>
+    )}
+  </div>
+
+  <form
+    className="chat-input-form"
+    onSubmit={(e) => {
+      e.preventDefault();
+      if (!joinedChannel || !newMessage.trim()) return;
+
+      const msg = { sender: displayName, text: newMessage.trim() };
+
+      setChatHistory((prev) => {
+        const next = { ...prev, [joinedChannel]: [...(prev[joinedChannel] ?? []), msg] };
+        try {
+          localStorage.setItem("channelChatHistory", JSON.stringify(next));
+        } catch {}
+        return next;
+      });
+
+      setNewMessage("");
+    }}
+  >
+    <input
+      type="text"
+      placeholder={joinedChannel ? `Message #${joinedChannel}` : "Join a channel to chat"}
+      value={newMessage}
+      onChange={(e) => setNewMessage(e.target.value)}
+      disabled={!joinedChannel}
+    />
+    <button type="submit" className="bb-primary" disabled={!joinedChannel || !newMessage.trim()}>
+      Send
+    </button>
+  </form>
+</div>
     </div>
   );
 }
