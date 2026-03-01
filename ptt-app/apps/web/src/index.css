@@ -7,6 +7,7 @@
 }
 
 :root {
+  --topbar-height: 64px;
   --color-bg: #0f1117;
   --color-surface: #1a1d27;
   --color-border: #2a2d3a;
@@ -26,6 +27,60 @@ body {
   line-height: 1.6;
   min-height: 100vh;
 }
+
+/* Top bar */
+.top-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--topbar-height);
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(180deg, rgba(26,29,39,0.95), rgba(10,11,14,0.9));
+  z-index: 60;
+}
+
+.top-bar-inner {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-title {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-emblem {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-emblem.guest {
+  background: linear-gradient(135deg, #475569, #6b7280);
+}
+
 
 /* Login */
 .login-container {
@@ -116,6 +171,7 @@ body {
   max-width: 720px;
   margin: 0 auto;
   padding: 2rem 1rem;
+  padding-top: calc(var(--topbar-height) + 2rem);
 }
 
 .dashboard-header {
@@ -195,6 +251,343 @@ body {
   margin-right: calc(-50vw + 50%);
   width: 100vw;
   border-top: 1px solid var(--color-border);
+}
+
+/* Contained map widget on the profile page */
+.profile-map-widget {
+  margin-top: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* Map Page — scrollable; map fills viewport, incident log is below */
+.map-page {
+  padding-top: calc(var(--topbar-height) + 8px);
+  padding-bottom: 80px;
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+.map-widget {
+  width: calc(100vw - 32px);
+  height: calc(100vh - var(--topbar-height) - 64px - 16px);
+  min-height: 240px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin: 0 16px;
+}
+
+.map-widget-body {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Incident type badges */
+.incident-type-badge {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.incident-type-fire     { background: rgba(239,68,68,0.15);   color: #f87171; }
+.incident-type-medical  { background: rgba(34,197,94,0.15);   color: #4ade80; }
+.incident-type-police   { background: rgba(59,130,246,0.15);  color: #60a5fa; }
+.incident-type-hazmat   { background: rgba(234,179,8,0.15);   color: #facc15; }
+.incident-type-traffic  { background: rgba(249,115,22,0.15);  color: #fb923c; }
+
+/* Status dot */
+.incident-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.incident-status-dot.incident-status-active    { background: #ef4444; }
+.incident-status-dot.incident-status-contained { background: #eab308; }
+.incident-status-dot.incident-status-resolved  { background: #22c55e; }
+
+/* Status pill (used on detail card) */
+.incident-status-pill {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 4px;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.incident-status-pill.incident-status-active    { background: rgba(239,68,68,0.15);  color: #f87171; }
+.incident-status-pill.incident-status-contained { background: rgba(234,179,8,0.15);  color: #facc15; }
+.incident-status-pill.incident-status-resolved  { background: rgba(34,197,94,0.15);  color: #4ade80; }
+
+/* Incident log — standalone card below the map widget */
+.incident-log {
+  width: calc(100vw - 32px);
+  margin: 12px 16px 0;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.incident-log-header {
+  padding: 5px 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  border-bottom: 1px solid var(--color-border);
+  background: rgba(10,11,14,0.6);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.incident-log-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.incident-log-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  text-align: left;
+  color: var(--color-text);
+  width: 100%;
+  transition: background 100ms ease;
+}
+
+.incident-log-item:hover {
+  background: rgba(59, 130, 246, 0.07);
+}
+
+.incident-log-title {
+  font-weight: 600;
+  font-size: 0.85rem;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.incident-log-address {
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.incident-log-time {
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+/* Incident detail card (on IncidentChannel page) */
+.incident-detail-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.incident-detail-row {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+  align-items: flex-start;
+}
+
+.incident-detail-label {
+  color: var(--color-text-muted);
+  font-weight: 500;
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.resolve-btn {
+  margin-top: 0.25rem;
+  padding: 0.55rem 1rem;
+  background: transparent;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  border-radius: var(--radius);
+  color: #f87171;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 100ms ease, border-color 100ms ease;
+}
+
+.resolve-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: #f87171;
+}
+
+/* Report incident form */
+.report-form {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 5rem; /* space above fixed bottom bar */
+}
+
+.report-form label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.375rem;
+  color: var(--color-text);
+}
+
+.report-form input,
+.report-form textarea {
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-family: inherit;
+}
+
+.report-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.report-form input:focus,
+.report-form textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.form-hint {
+  font-size: 0.77rem;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+}
+
+/* Incident type toggle buttons */
+.type-btn-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.type-btn {
+  padding: 5px 13px;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 100ms ease;
+}
+
+.type-btn:hover {
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+
+.type-btn.active-fire     { background: rgba(239,68,68,0.15);  color: #f87171; border-color: rgba(248,113,113,0.5); }
+.type-btn.active-medical  { background: rgba(34,197,94,0.15);  color: #4ade80; border-color: rgba(74,222,128,0.5);  }
+.type-btn.active-police   { background: rgba(59,130,246,0.15); color: #60a5fa; border-color: rgba(96,165,250,0.5);  }
+.type-btn.active-hazmat   { background: rgba(234,179,8,0.15);  color: #facc15; border-color: rgba(250,204,21,0.5);  }
+.type-btn.active-traffic  { background: rgba(249,115,22,0.15); color: #fb923c; border-color: rgba(251,146,60,0.5);  }
+
+/* Location detection row */
+.location-detect {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.625rem 0.75rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.location-detect.ready {
+  border-color: rgba(34, 197, 94, 0.35);
+  color: var(--color-text);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.location-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+/* Report submit button */
+.report-submit-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background 100ms ease;
+}
+
+.report-submit-btn:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.report-submit-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 /* MapLibre dark theme overrides */
@@ -360,30 +753,35 @@ body {
 
 .chat-input-form {
   display: flex;
-  gap: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--color-bg);
+  transition: border-color 100ms ease;
+}
+
+.chat-input-form:focus-within {
+  border-color: var(--color-primary);
 }
 
 .chat-input-form input {
   flex: 1;
   padding: 0.5rem 0.75rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--color-border);
-  background: var(--color-bg);
+  border: none;
+  background: transparent;
   color: var(--color-text);
+  font-size: 0.875rem;
 }
 
 .chat-input-form input:focus {
   outline: none;
-  border-color: var(--color-primary);
 }
 
-.removed-channels { margin-top: 1rem; }
-.removed-channels h4 { font-size: 0.95rem; margin-bottom: 0.5rem; }
-.removed-channels .bb-btn { font-size: 0.85rem; padding: 6px 10px; }
-
-.chat-container input { font-size: 0.85rem; }
-.chat-message { font-size: 0.85rem; padding: 2px 4px; border-radius: 4px; }
-.chat-message strong { color: var(--color-primary); }
-
-.chat-history::-webkit-scrollbar { width: 6px; }
-.chat-history::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 4px; }
+.chat-input-form button[type="submit"],
+.chat-input-form .bb-primary {
+  border-radius: 0;
+  border: none;
+  border-left: 1px solid var(--color-border);
+  padding: 0.5rem 1rem;
+  flex-shrink: 0;
+}
