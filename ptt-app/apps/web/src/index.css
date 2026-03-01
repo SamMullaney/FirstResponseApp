@@ -784,19 +784,35 @@ body {
 
 .chat-input-form {
   display: flex;
-  gap: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--color-bg);
+  transition: border-color 100ms ease;
+}
+
+.chat-input-form:focus-within {
+  border-color: var(--color-primary);
 }
 
 .chat-input-form input {
   flex: 1;
   padding: 0.5rem 0.75rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--color-border);
-  background: var(--color-bg);
+  border: none;
+  background: transparent;
   color: var(--color-text);
+  font-size: 0.875rem;
 }
 
 .chat-input-form input:focus {
   outline: none;
-  border-color: var(--color-primary);
+}
+
+.chat-input-form button[type="submit"],
+.chat-input-form .bb-primary {
+  border-radius: 0;
+  border: none;
+  border-left: 1px solid var(--color-border);
+  padding: 0.5rem 1rem;
+  flex-shrink: 0;
 }
