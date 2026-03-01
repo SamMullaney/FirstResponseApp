@@ -729,6 +729,62 @@ body {
   color: #f87171;
 }
 
+/* ── Mic widget (VoiceChat) ─────────────────────────────────────────────── */
+.mic-widget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 0 8px;
+}
+
+.mic-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  background: rgba(30, 33, 48, 0.9);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  /* scale is driven by inline style; no CSS transition so it tracks audio in real time */
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.mic-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.mic-btn--active {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+.mic-label {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.03em;
+}
+
+.mic-error,
+.mic-loading {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  padding: 8px 0;
+  text-align: center;
+}
+
+.mic-error {
+  color: var(--color-error);
+}
+
 .chat-history {
   max-height: 200px;
   overflow-y: auto;
