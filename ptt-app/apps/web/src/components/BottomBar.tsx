@@ -13,8 +13,8 @@ export default function BottomBar({ onLeft, onPrimary, onRight }: Props) {
         Map
       </button>
 
-      <button className="bb-btn bb-primary" onClick={onPrimary} aria-label="Push to Talk">
-        Push
+      <button className="bb-btn bb-primary" onClick={onPrimary} aria-label="Report Incident">
+        REPORT
       </button>
 
       <button className="bb-btn bb-right" onClick={onRight} aria-label="Channels">

@@ -454,6 +454,164 @@ body {
   flex-shrink: 0;
 }
 
+.resolve-btn {
+  margin-top: 0.25rem;
+  padding: 0.55rem 1rem;
+  background: transparent;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  border-radius: var(--radius);
+  color: #f87171;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 100ms ease, border-color 100ms ease;
+}
+
+.resolve-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: #f87171;
+}
+
+/* Report incident form */
+.report-form {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 5rem; /* space above fixed bottom bar */
+}
+
+.report-form label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.375rem;
+  color: var(--color-text);
+}
+
+.report-form input,
+.report-form textarea {
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-family: inherit;
+}
+
+.report-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.report-form input:focus,
+.report-form textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.form-hint {
+  font-size: 0.77rem;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+}
+
+/* Incident type toggle buttons */
+.type-btn-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.type-btn {
+  padding: 5px 13px;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 100ms ease;
+}
+
+.type-btn:hover {
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+
+.type-btn.active-fire     { background: rgba(239,68,68,0.15);  color: #f87171; border-color: rgba(248,113,113,0.5); }
+.type-btn.active-medical  { background: rgba(34,197,94,0.15);  color: #4ade80; border-color: rgba(74,222,128,0.5);  }
+.type-btn.active-police   { background: rgba(59,130,246,0.15); color: #60a5fa; border-color: rgba(96,165,250,0.5);  }
+.type-btn.active-hazmat   { background: rgba(234,179,8,0.15);  color: #facc15; border-color: rgba(250,204,21,0.5);  }
+.type-btn.active-traffic  { background: rgba(249,115,22,0.15); color: #fb923c; border-color: rgba(251,146,60,0.5);  }
+
+/* Location detection row */
+.location-detect {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.625rem 0.75rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.location-detect.ready {
+  border-color: rgba(34, 197, 94, 0.35);
+  color: var(--color-text);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.location-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+/* Report submit button */
+.report-submit-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background 100ms ease;
+}
+
+.report-submit-btn:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.report-submit-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 /* MapLibre dark theme overrides */
 .maplibregl-ctrl-group {
   background: var(--color-surface) !important;

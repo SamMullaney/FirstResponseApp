@@ -1,16 +1,21 @@
 import React from "react";
 import { useAuth } from "../auth/authContext";
-import { DEMO_INCIDENTS, TYPE_LABELS } from "../data/incidents";
+import type { Incident } from "../data/incidents";
+import { TYPE_LABELS } from "../data/incidents";
 
 export default function IncidentChannel({
+  incidents,
   incidentId,
   onBack,
+  onResolve,
 }: {
+  incidents: Incident[];
   incidentId: string;
   onBack: () => void;
+  onResolve: () => void;
 }) {
   const { user, logout } = useAuth();
-  const incident = DEMO_INCIDENTS.find((i) => i.id === incidentId);
+  const incident = incidents.find((i) => i.id === incidentId);
   const displayName = user?.email ?? "Unknown";
 
   const [messages, setMessages] = React.useState<
@@ -102,6 +107,17 @@ export default function IncidentChannel({
             {incident.description}
           </span>
         </div>
+
+        <button
+          className="resolve-btn"
+          onClick={() => {
+            if (window.confirm(`Mark "${incident.title}" as resolved? It will be removed from the map and log.`)) {
+              onResolve();
+            }
+          }}
+        >
+          &#10003; Resolve Incident
+        </button>
       </div>
 
       <div className="channel-chat-container">
