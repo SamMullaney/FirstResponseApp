@@ -107,8 +107,8 @@ export default function Dashboard({
         </dl>
       </div>
 
-      <div className="map-breakout">
-        <MapView />
+      <div className="profile-map-widget">
+        <MapView height="280px" />
       </div>
       {/* Bottom bar spacer (hidden when used as standalone profile) */}
       {!hideBottomSpacer && <div style={{ height: 72 }} />}

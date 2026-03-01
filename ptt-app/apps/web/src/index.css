@@ -253,6 +253,15 @@ body {
   border-top: 1px solid var(--color-border);
 }
 
+/* Contained map widget on the profile page */
+.profile-map-widget {
+  margin-top: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
 /* Map Page */
 .map-page {
   position: fixed;
