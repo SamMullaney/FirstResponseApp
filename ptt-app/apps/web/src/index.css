@@ -376,3 +376,14 @@ body {
   outline: none;
   border-color: var(--color-primary);
 }
+
+.removed-channels { margin-top: 1rem; }
+.removed-channels h4 { font-size: 0.95rem; margin-bottom: 0.5rem; }
+.removed-channels .bb-btn { font-size: 0.85rem; padding: 6px 10px; }
+
+.chat-container input { font-size: 0.85rem; }
+.chat-message { font-size: 0.85rem; padding: 2px 4px; border-radius: 4px; }
+.chat-message strong { color: var(--color-primary); }
+
+.chat-history::-webkit-scrollbar { width: 6px; }
+.chat-history::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 4px; }

@@ -6,9 +6,14 @@ export default function Channels({ onBack }: { onBack: () => void }) {
 
   const channels = [
     { id: "general", name: "General (ALL)" },
-    { id: "firefighters", name: "Firefighters" },
-    { id: "police", name: "Police" },
-    { id: "emt", name: "EMT" },
+    { id: "firefighters", name: "Firefighters 🚒" },
+    { id: "police", name: "Police 🚔" },
+    { id: "emt", name: "EMT 🚑" },
+    { id :"FBI", name: "FBI 🕵" },
+    { id: "CIA", name: "CIA 🦅" },
+    {id: "NSA", name: "NSA 🛰️"},
+    {id: "military", name: "Military 🪖"},
+    {id: "news", name: "News 📰"},
   ];
 
   // members: mapping channelId -> string[] of display names
