@@ -706,6 +706,29 @@ body {
   font-size: 1rem;
 }
 
+.voice-container {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(20,22,28,0.6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.voice-btn {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.voice-btn.active {
+  background: rgba(239,68,68,0.15);
+  border-color: #f87171;
+  color: #f87171;
+}
+
 .chat-history {
   max-height: 200px;
   overflow-y: auto;
