@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import MapView from "../components/MapView";
 
 export default function MapPage() {
-  const [pos, setPos] = useState({ x: 24, y: 72 });
+  const [pos, setPos] = useState({ x: 16, y: 72 });
   const dragging = useRef(false);
   const dragStart = useRef({ mouseX: 0, mouseY: 0, posX: 0, posY: 0 });
 
