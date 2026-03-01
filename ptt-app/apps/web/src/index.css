@@ -262,58 +262,26 @@ body {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
 
-/* Map Page */
+/* Map Page — scrollable; map fills viewport, incident log is below */
 .map-page {
-  position: fixed;
-  inset: 0;
+  padding-top: calc(var(--topbar-height) + 8px);
+  padding-bottom: 80px;
+  min-height: 100vh;
   background: var(--color-bg);
-  overflow: hidden;
 }
 
-
-/* Draggable map widget */
 .map-widget {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: calc(100vw - 32px);
   height: calc(100vh - var(--topbar-height) - 64px - 16px);
-  min-width: 320px;
   min-height: 240px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 12px;
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
   overflow: hidden;
-  z-index: 100;
   display: flex;
   flex-direction: column;
-}
-
-.map-widget-handle {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-  cursor: grab;
-  user-select: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--color-text);
-  flex-shrink: 0;
-}
-
-.map-widget-handle:active {
-  cursor: grabbing;
-}
-
-.map-widget-grip {
-  color: var(--color-text-muted);
-  font-size: 1.1rem;
-  line-height: 1;
-  letter-spacing: 2px;
+  margin: 0 16px;
 }
 
 .map-widget-body {
@@ -362,13 +330,14 @@ body {
 .incident-status-pill.incident-status-contained { background: rgba(234,179,8,0.15);  color: #facc15; }
 .incident-status-pill.incident-status-resolved  { background: rgba(34,197,94,0.15);  color: #4ade80; }
 
-/* Incident log panel inside the map widget */
+/* Incident log — standalone card below the map widget */
 .incident-log {
-  flex-shrink: 0;
-  height: 160px;
-  border-top: 1px solid var(--color-border);
-  overflow-y: auto;
+  width: calc(100vw - 32px);
+  margin: 12px 16px 0;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
   background: var(--color-surface);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
