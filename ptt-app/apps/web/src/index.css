@@ -312,6 +312,148 @@ body {
   min-height: 0;
 }
 
+/* Incident type badges */
+.incident-type-badge {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.incident-type-fire     { background: rgba(239,68,68,0.15);   color: #f87171; }
+.incident-type-medical  { background: rgba(34,197,94,0.15);   color: #4ade80; }
+.incident-type-police   { background: rgba(59,130,246,0.15);  color: #60a5fa; }
+.incident-type-hazmat   { background: rgba(234,179,8,0.15);   color: #facc15; }
+.incident-type-traffic  { background: rgba(249,115,22,0.15);  color: #fb923c; }
+
+/* Status dot */
+.incident-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.incident-status-dot.incident-status-active    { background: #ef4444; }
+.incident-status-dot.incident-status-contained { background: #eab308; }
+.incident-status-dot.incident-status-resolved  { background: #22c55e; }
+
+/* Status pill (used on detail card) */
+.incident-status-pill {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 4px;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.incident-status-pill.incident-status-active    { background: rgba(239,68,68,0.15);  color: #f87171; }
+.incident-status-pill.incident-status-contained { background: rgba(234,179,8,0.15);  color: #facc15; }
+.incident-status-pill.incident-status-resolved  { background: rgba(34,197,94,0.15);  color: #4ade80; }
+
+/* Incident log panel inside the map widget */
+.incident-log {
+  flex-shrink: 0;
+  height: 160px;
+  border-top: 1px solid var(--color-border);
+  overflow-y: auto;
+  background: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+}
+
+.incident-log-header {
+  padding: 5px 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  border-bottom: 1px solid var(--color-border);
+  background: rgba(10,11,14,0.6);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.incident-log-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.incident-log-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  text-align: left;
+  color: var(--color-text);
+  width: 100%;
+  transition: background 100ms ease;
+}
+
+.incident-log-item:hover {
+  background: rgba(59, 130, 246, 0.07);
+}
+
+.incident-log-title {
+  font-weight: 600;
+  font-size: 0.85rem;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.incident-log-address {
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.incident-log-time {
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+/* Incident detail card (on IncidentChannel page) */
+.incident-detail-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.incident-detail-row {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+  align-items: flex-start;
+}
+
+.incident-detail-label {
+  color: var(--color-text-muted);
+  font-weight: 500;
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
 /* MapLibre dark theme overrides */
 .maplibregl-ctrl-group {
   background: var(--color-surface) !important;
