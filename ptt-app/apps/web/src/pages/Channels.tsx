@@ -1,3 +1,4 @@
+import VoiceChat from "../components/VoiceChat";
 import React from "react";
 import { useAuth } from "../auth/authContext";
 
@@ -177,6 +178,10 @@ export default function Channels({ onBack }: { onBack: () => void }) {
 
       <div className="channel-chat-container">
   <h3>Chat {joinedChannel ? `#${joinedChannel}` : ""}</h3>
+
+      {joinedChannel && (
+        <VoiceChat channelId={joinedChannel} />
+      )}
 
   <div className="chat-history">
     {(joinedChannel ? chatHistory[joinedChannel] ?? [] : []).map((msg, idx) => (
