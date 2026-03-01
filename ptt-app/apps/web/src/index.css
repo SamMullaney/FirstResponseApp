@@ -616,6 +616,10 @@ body {
   z-index: 50;
 }
 
+.dashboard-container {
+  padding-bottom: 96px;
+}
+
 .bb-btn {
   background: transparent;
   border: 1px solid var(--color-border);

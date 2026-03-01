@@ -2,6 +2,7 @@ import React from "react";
 import { useAuth } from "../auth/authContext";
 import type { Incident } from "../data/incidents";
 import { TYPE_LABELS } from "../data/incidents";
+import VoiceChat from "../components/VoiceChat";
 
 export default function IncidentChannel({
   incidents,
@@ -122,6 +123,10 @@ export default function IncidentChannel({
 
       <div className="channel-chat-container">
         <h3>Incident Channel — {incident.id.toUpperCase()}</h3>
+
+        <div style={{ marginTop: "1rem" }}>
+          <VoiceChat channelId={`incident-${incident.id}`} />
+        </div>
 
         <div className="chat-history">
           {messages.length === 0 && (
