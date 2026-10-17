@@ -1,6 +1,6 @@
 # First Response
 
-A cross-agency **push-to-talk (PTT) emergency communication app** for police, fire, EMS, and other responders. Users from different agencies can coordinate on shared channels, see active incidents on a live map, and report new incidents from the field.
+This is a demo for a cross-agency **push-to-talk (PTT) emergency communication app** for police, fire, EMS, and other responders. Users from different agencies can coordinate on shared channels, see active incidents on a live map, and report new incidents from the field.
 
 > **Status:** Early MVP. Authentication and the mobile-first web client work today. Real-time voice, floor control, and telemetry are planned (see the [Roadmap](#roadmap)).
 
